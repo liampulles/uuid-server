@@ -32,7 +32,7 @@ func Run(source config.Source, listenAndServe func(string, http.Handler) error) 
 	handler := api.NewUUIDHandler(logSvc, uuidSvc)
 
 	logSvc.Infof("Now serving on port %s!", cfg.Port)
-	if err := listenAndServe(":"+cfg.Port, handler); err != nil {
+	if err := listenAndServe(fmt.Sprintf(":%d", cfg.Port), handler); err != nil {
 		fmt.Printf("Error during serving: %v", err)
 		return 2
 	}

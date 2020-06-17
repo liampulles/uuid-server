@@ -5,19 +5,19 @@ import (
 )
 
 type UuidServerConfig struct {
-	Port     string
+	Port     int
 	LogLevel string
 }
 
 func InitUuidServerConfig(source goConfig.Source) (*UuidServerConfig, error) {
 	typedSource := goConfig.NewTypedSource(source)
 	config := &UuidServerConfig{
-		Port:     "8080",
+		Port:     8080,
 		LogLevel: "INFO",
 	}
 
 	if err := goConfig.LoadProperties(typedSource,
-		goConfig.StrProp("PORT", &config.Port, false),
+		goConfig.IntProp("PORT", &config.Port, false),
 		goConfig.StrProp("LOGLEVEL", &config.LogLevel, false),
 	); err != nil {
 		return nil, err
