@@ -63,6 +63,8 @@ Once the app is running (see [Install](#install)):
 curl http://127.0.0.1:8080/
 ```
 
+(Or an equivalent way of sending a `GET` on `/`)
+
 Should yield the response (with a different UUID):
 
 ```text
