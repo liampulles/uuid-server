@@ -16,3 +16,6 @@
 
 # Binary
 uuid-server
+
+# Coverage
+coverage.txt
