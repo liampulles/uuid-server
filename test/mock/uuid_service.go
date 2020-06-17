@@ -1,10 +1,12 @@
 package mock
 
-type MockUUIDService struct {
+// UUIDService mocks uuid.Service
+type UUIDService struct {
 	MockErr  error
 	MockResp string
 }
 
-func (m *MockUUIDService) GenerateVersion4UUID() (string, error) {
+// GenerateVersion4UUID implements the interface
+func (m *UUIDService) GenerateVersion4UUID() (string, error) {
 	return m.MockResp, m.MockErr
 }

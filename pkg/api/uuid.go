@@ -9,13 +9,16 @@ import (
 	"github.com/liampulles/uuid-server/pkg/logger"
 )
 
+// UUIDHandler implements the http.Handler interface
 type UUIDHandler struct {
 	loggerService logger.Service
 	uuidService   uuid.Service
 }
 
+// Check we implement the interface
 var _ http.Handler = &UUIDHandler{}
 
+// NewUUIDHandler is a constructor
 func NewUUIDHandler(loggerService logger.Service, uuidService uuid.Service) *UUIDHandler {
 	return &UUIDHandler{
 		loggerService: loggerService,
@@ -23,6 +26,7 @@ func NewUUIDHandler(loggerService logger.Service, uuidService uuid.Service) *UUI
 	}
 }
 
+// ServeHTTP implements the http.Handler interface
 func (uh *UUIDHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	gen, err := uh.uuidService.GenerateVersion4UUID()
 	if err != nil {

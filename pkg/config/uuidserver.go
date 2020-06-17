@@ -4,14 +4,17 @@ import (
 	goConfig "github.com/liampulles/go-config"
 )
 
-type UuidServerConfig struct {
+// UUIDServerConfig provides configuration for the uuid-server app
+type UUIDServerConfig struct {
 	Port     int
 	LogLevel string
 }
 
-func InitUuidServerConfig(source goConfig.Source) (*UuidServerConfig, error) {
+// InitUUIDServerConfig populates UUIDServerConfig from a source,
+// else uses defaults.
+func InitUUIDServerConfig(source goConfig.Source) (*UUIDServerConfig, error) {
 	typedSource := goConfig.NewTypedSource(source)
-	config := &UuidServerConfig{
+	config := &UUIDServerConfig{
 		Port:     8080,
 		LogLevel: "INFO",
 	}

@@ -13,13 +13,13 @@ func TestInitUuidServerConfig_WhenParametersUnset_ShouldUseDefault(t *testing.T)
 	source := goConfig.MapSource(map[string]string{})
 
 	// Setup expectations
-	expected := &config.UuidServerConfig{
+	expected := &config.UUIDServerConfig{
 		Port:     8080,
 		LogLevel: "INFO",
 	}
 
 	// Exercise SUT
-	actual, err := config.InitUuidServerConfig(source)
+	actual, err := config.InitUUIDServerConfig(source)
 
 	// Verify results
 	if err != nil {
@@ -38,13 +38,13 @@ func TestInitUuidServerConfig_WhenParametersSet_ShouldUseParameters(t *testing.T
 	})
 
 	// Setup expectations
-	expected := &config.UuidServerConfig{
+	expected := &config.UUIDServerConfig{
 		Port:     9001,
 		LogLevel: "ERROR",
 	}
 
 	// Exercise SUT
-	actual, err := config.InitUuidServerConfig(source)
+	actual, err := config.InitUUIDServerConfig(source)
 
 	// Verify results
 	if err != nil {
@@ -63,7 +63,7 @@ func TestInitUuidServerConfig_WhenParameterTypeMismatch_ShouldFail(t *testing.T)
 	})
 
 	// Exercise SUT
-	actual, err := config.InitUuidServerConfig(source)
+	actual, err := config.InitUUIDServerConfig(source)
 
 	// Verify results
 	if err == nil {

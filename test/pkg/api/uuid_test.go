@@ -13,10 +13,10 @@ import (
 
 func TestUUIDHandler_ServeHTTP_WhenUUIDServiceFails_ShouldReturnInternalServiceErrorAndLogIt(t *testing.T) {
 	// Setup fixture
-	mockLogger := &mock.MockLoggerService{}
+	mockLogger := &mock.LoggerService{}
 	uuidHandler := api.NewUUIDHandler(
 		mockLogger,
-		&mock.MockUUIDService{
+		&mock.UUIDService{
 			MockErr: fmt.Errorf("some error"),
 		})
 	responseWriter := &mockResponseWriter{
@@ -45,10 +45,10 @@ func TestUUIDHandler_ServeHTTP_WhenUUIDServiceFails_ShouldReturnInternalServiceE
 
 func TestUUIDHandler_ServeHTTP_WhenUUIDServiceFailsAndResponseWriterFails_ShouldLogBoth(t *testing.T) {
 	// Setup fixture
-	mockLogger := &mock.MockLoggerService{}
+	mockLogger := &mock.LoggerService{}
 	uuidHandler := api.NewUUIDHandler(
 		mockLogger,
-		&mock.MockUUIDService{
+		&mock.UUIDService{
 			MockErr: fmt.Errorf("some error"),
 		})
 	responseWriter := &mockResponseWriter{
@@ -76,10 +76,10 @@ func TestUUIDHandler_ServeHTTP_WhenUUIDServiceFailsAndResponseWriterFails_Should
 
 func TestUUIDHandler_ServeHTTP_WhenUUIDServicePassesButResponseWriterFails_ShouldSetStatusCodeButLogError(t *testing.T) {
 	// Setup fixture
-	mockLogger := &mock.MockLoggerService{}
+	mockLogger := &mock.LoggerService{}
 	uuidHandler := api.NewUUIDHandler(
 		mockLogger,
-		&mock.MockUUIDService{
+		&mock.UUIDService{
 			MockResp: "some uuid",
 		})
 	responseWriter := &mockResponseWriter{
@@ -106,10 +106,10 @@ func TestUUIDHandler_ServeHTTP_WhenUUIDServicePassesButResponseWriterFails_Shoul
 
 func TestUUIDHandler_ServeHTTP_WhenUUIDServicePasses_ShouldSetStatusCodeOkAndWriteResponse(t *testing.T) {
 	// Setup fixture
-	mockLogger := &mock.MockLoggerService{}
+	mockLogger := &mock.LoggerService{}
 	uuidHandler := api.NewUUIDHandler(
 		mockLogger,
-		&mock.MockUUIDService{
+		&mock.UUIDService{
 			MockResp: "some uuid",
 		})
 	responseWriter := &mockResponseWriter{
