@@ -5,6 +5,17 @@ builds:
 - env:
   # Static binary
   - CGO_ENABLED=0
+  goos:
+    - linux
+    - freebsd
+    - netbsd
+    - windows
+    - darwin
+  goarch:
+    - 386
+    - amd64
+    - arm
+    - arm64
 archives:
 - replacements:
     darwin: Darwin
@@ -27,4 +38,3 @@ release:
     owner: liampulles
     name: uuid-server
   prerelease: auto
-  
