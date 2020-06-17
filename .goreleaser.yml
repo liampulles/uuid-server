@@ -22,3 +22,9 @@ changelog:
     exclude:
     - '^docs:'
     - '^test:'
+release:
+  github:
+    owner: liampulles
+    name: uuid-server
+  prerelease: auto
+  

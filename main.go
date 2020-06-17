@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/liampulles/go-config"
-	"github.com/liampulles/uuid-server/cmd/uuid-server/run"
+	"github.com/liampulles/uuid-server/pkg/run"
 )
 
 func main() {
