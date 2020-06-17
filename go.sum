@@ -1,2 +1,4 @@
 github.com/google/uuid v1.1.1 h1:Gkbcsh/GbpXz7lPftLA3P6TYMwjCLYm83jiFQZF/3gY=
 github.com/google/uuid v1.1.1/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+github.com/liampulles/go-config v0.0.0-20200529203234-81ae28dd900f h1:PtTUk+fKZ24xQR1lI+Lv8m+ZTYVUIbAX4RIaaPsFCCg=
+github.com/liampulles/go-config v0.0.0-20200529203234-81ae28dd900f/go.mod h1:V12I+OJ01jZ8aBOn2IC31N/OyupF/h6N/oR+R1L6ly4=

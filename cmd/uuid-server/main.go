@@ -6,49 +6,34 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/google/uuid"
-)
+	"github.com/liampulles/go-config"
 
-const (
-	defaultPort  = "8080"
-	logLevelInfo = iota
-	logLevelError
+	"github.com/liampulles/uuid-server/pkg/api"
+	uuidConfig "github.com/liampulles/uuid-server/pkg/config"
+	"github.com/liampulles/uuid-server/pkg/logger"
+	"github.com/liampulles/uuid-server/pkg/uuid"
 )
 
 func main() {
-	port := configPort()
-	handler := &uuidHandler{}
-	http.ListenAndServe(":"+port, handler)
+	code := Run(config.NewEnvSource(), http.ListenAndServe)
+	os.Exit(code)
 }
 
-func configPort() string {
-	port, present := os.LookupEnv("PORT")
-	if !present {
-		return defaultPort
-	}
-	return port
-}
-
-type uuidHandler struct{}
-
-var _ http.Handler = &uuidHandler{}
-
-func (uh *uuidHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	gen, err := generateVersion4UUID()
+func Run(source config.Source, listenAndServe func(string, http.Handler) error) int {
+	cfg, err := uuidConfig.InitUuidServerConfig(source)
 	if err != nil {
-		w.WriteHeader(500)
-		fmt.Fprintf(w, "Encountered an error: %s", err.Error())
-		log.Printf("ERROR: %v", err)
-		return
+		fmt.Printf("Error parsing config: %v", err)
+		return 1
 	}
-	w.WriteHeader(200)
-	fmt.Fprint(w, gen)
-}
 
-func generateVersion4UUID() (string, error) {
-	gen, err := uuid.NewRandom()
-	if err != nil {
-		return "", err
+	logSvc := logger.NewServiceImpl(cfg.LogLevel, log.Printf)
+	uuidSvc := uuid.NewServiceImpl()
+	handler := api.NewUUIDHandler(logSvc, uuidSvc)
+
+	logSvc.Infof("Now serving on port %s!", cfg.Port)
+	if err := listenAndServe(":"+cfg.Port, handler); err != nil {
+		fmt.Printf("Error during serving: %v", err)
+		return 2
 	}
-	return gen.String(), nil
+	return 0
 }
