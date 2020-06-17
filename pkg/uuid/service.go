@@ -7,16 +7,19 @@ type Service interface {
 }
 
 type ServiceImpl struct {
+	newRandomFunc func() (uuid.UUID, error)
 }
 
 var _ Service = &ServiceImpl{}
 
-func NewServiceImpl() *ServiceImpl {
-	return &ServiceImpl{}
+func NewServiceImpl(newRandomFunc func() (uuid.UUID, error)) *ServiceImpl {
+	return &ServiceImpl{
+		newRandomFunc: newRandomFunc,
+	}
 }
 
 func (si *ServiceImpl) GenerateVersion4UUID() (string, error) {
-	gen, err := uuid.NewRandom()
+	gen, err := si.newRandomFunc()
 	if err != nil {
 		return "", err
 	}

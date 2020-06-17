@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 
+	googleUuid "github.com/google/uuid"
 	"github.com/liampulles/go-config"
 
 	"github.com/liampulles/uuid-server/pkg/api"
@@ -27,7 +28,7 @@ func Run(source config.Source, listenAndServe func(string, http.Handler) error) 
 	}
 
 	logSvc := logger.NewServiceImpl(cfg.LogLevel, log.Printf)
-	uuidSvc := uuid.NewServiceImpl()
+	uuidSvc := uuid.NewServiceImpl(googleUuid.NewRandom)
 	handler := api.NewUUIDHandler(logSvc, uuidSvc)
 
 	logSvc.Infof("Now serving on port %s!", cfg.Port)

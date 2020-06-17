@@ -1,4 +1,4 @@
-package uuid_test
+package mock
 
 type MockUUIDService struct {
 	MockErr  error
