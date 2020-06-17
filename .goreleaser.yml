@@ -38,3 +38,22 @@ release:
     owner: liampulles
     name: uuid-server
   prerelease: auto
+dockers:
+  -
+    goos: linux
+    goarch: amd64
+    goarm: ''
+    binaries:
+    - uuid-server
+    image_templates:
+    - "lpulles/uuid-server:latest"
+    - "lpulles/uuid-server:{{ .Tag }}"
+    - "lpulles/uuid-server:v{{ .Major }}"
+    - "lpulles/uuid-server:v{{ .Major }}.{{ .Minor }}"
+    dockerfile: Dockerfile
+    build_flag_templates:
+    - "--pull"
+    - "--label=org.opencontainers.image.created={{.Date}}"
+    - "--label=org.opencontainers.image.name={{.ProjectName}}"
+    - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+    - "--label=org.opencontainers.image.version={{.Version}}"
